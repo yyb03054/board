@@ -1,11 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Hello</title>
+    <title>hello-template</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="'안녕하세요. ' + ${data}+'ㅁㄴㅇ'" >안녕하세요. 손님</p>
+<p th:text="'안녕하세요. ' + ${name}" >안녕하세요. 손님</p>
+<a> <br>안녕하세요</a>
 <!--th = thymleaf          data가 hello로 치환됨.-->
 </body>
 </html>
+
