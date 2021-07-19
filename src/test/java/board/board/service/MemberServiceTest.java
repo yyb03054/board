@@ -1,4 +1,4 @@
-package board.board.service;
+/*package board.board.service;
 
 import board.board.domain.Member;
 import board.board.repository.MemoryMemberRepository;
@@ -58,7 +58,7 @@ class MemberServiceTest {
             fail();
         } catch (IllegalStateException e){
             Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-        }*/
+        }
 
         //then
     }
@@ -72,3 +72,4 @@ class MemberServiceTest {
         //then
     }
 }
+*/

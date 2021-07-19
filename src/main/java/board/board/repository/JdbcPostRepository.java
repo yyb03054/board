@@ -17,7 +17,7 @@ public class JdbcPostRepository implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        String sql = "insert into post(name) values(?)";
+        String sql = "insert into post(name, content) values(?,?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -26,6 +26,7 @@ public class JdbcPostRepository implements PostRepository {
             pstmt = conn.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, post.getName());
+            pstmt.setString(2, post.getContent());
             pstmt.executeUpdate();
             rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
@@ -40,6 +41,7 @@ public class JdbcPostRepository implements PostRepository {
             close(conn, pstmt, rs);
         }
     }
+
     @Override
     public Optional<Post> findById(Long id) {
         String sql = "select * from post where id = ?";
@@ -50,12 +52,13 @@ public class JdbcPostRepository implements PostRepository {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, id);
+
             rs = pstmt.executeQuery();
             if(rs.next()) {
                 Post post = new Post();
                 post.setId(rs.getLong("id"));
                 post.setName(rs.getString("name"));
-                post.setPost(rs.getString("post"));
+                post.setContent(rs.getString("content"));
                 return Optional.of(post);
             } else {
                 return Optional.empty();
@@ -81,7 +84,7 @@ public class JdbcPostRepository implements PostRepository {
                 Post post = new Post();
                 post.setId(rs.getLong("id"));
                 post.setName(rs.getString("name"));
-                post.setPost(rs.getString("post"));
+                post.setContent(rs.getString("content"));
                 posts.add(post);
             }
             return posts;
@@ -106,8 +109,33 @@ public class JdbcPostRepository implements PostRepository {
                 Post post = new Post();
                 post.setId(rs.getLong("id"));
                 post.setName(rs.getString("name"));
-                post.setPost(rs.getString("post"));
+                post.setContent(rs.getString("content"));
                 return Optional.of(post);
+            }
+            return Optional.empty();
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+    @Override
+    public Optional<Post> findByContent(String content) {
+        String sql = "select * from post where content = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, content);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                Post post1 = new Post();
+                post1.setId(rs.getLong("id"));
+                post1.setName(rs.getString("name"));
+                post1.setContent(rs.getString("content"));
+                return Optional.of(post1);
             }
             return Optional.empty();
         } catch (Exception e) {
