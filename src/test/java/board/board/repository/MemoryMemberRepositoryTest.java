@@ -1,4 +1,4 @@
-package board.board.repository;
+/*package board.board.repository;
 
 import board.board.domain.Member;
 import org.junit.jupiter.api.AfterEach;
@@ -57,4 +57,4 @@ public class MemoryMemberRepositoryTest {
     }
 
 
-}
+}*/
