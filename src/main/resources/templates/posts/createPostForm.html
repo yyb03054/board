@@ -1,23 +1,40 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
+<script language="javascript">
+    function check() {
+
+        var f = document.post;
+
+
+        if (f.name.value == "") {
+            alert("아이디를 입력해주십시오");
+            f.name.focus();
+            return false;
+        }
+    }
+</script>
+
+<body>
 <div class="container">
-    <form action="/posts/new" th:object="${post}" method="post">
+    <form name="post" action="/posts" th:object="${post}" method="post">
         <div class="form-group">
-            <label th:for="name">제목</label>
-            <input type="text" th:field="*{name}" id="name" name="name" placeholder="제목을 입력하세요" style="width:300px;">
+            <label th:for="name">제목<br></label>
+            <input type="text" th:field="*{name}" id="name" name="name" placeholder="제목을 입력하세요" style="width:300px;"
+                   onkeyup="javascript:keyevent(this);">
             <br><br>
 
-            <label th:for="content" border="1" width="200" height="100">내용</label>
-            <input type="text" th:field="*{content}" id="content" name="content" placeholder="내용을 입력하세요" style="width:300px;height:200px;">
-
+            <label th:for="content" border="1" width="200" height="100">내용<br></label>
+            <textarea th:field="*{content}" id="content" name="content" placeholder="내용을 입력하세요" style="width:300px;height:200px;">
+            </textarea>
         </div>
         <p align="left">
         <button type="submit">등록</button>
         </p>
     </form>
 </div>
+
 
 </body>
 </html>

@@ -29,7 +29,7 @@ public class PostController {
         model.addAttribute("post", new PostForm());
         return "posts/createPostForm";
     }
-    @PostMapping("/posts/new")
+    @PostMapping("/posts")
     public String create(PostForm form) {
         Post post = new Post();
         post.setName(form.getName());
